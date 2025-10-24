@@ -77,4 +77,33 @@ Cypress.Commands.add('registrarUsuarioCompleto', (usuario, email_usuario, senha,
     cy.get('[data-qa="create-account"]')
         .should('be.visible')
         .click();
+
+    // Verifica o texto de criação do usuário
+    cy.get('[data-qa="account-created"]').should('be.visible');
+
+    // Clica no botão de continuar após a verificação da tela
+    cy.get('[data-qa="continue-button"]').should('be.visible').click();
+
+    // Verifica se a label com o nome do usuário e se ela está visível e correta
+    cy.get('[class="nav navbar-nav"]').should('be.visible').contains(`${usuario}`);
+});
+
+// Remove um usuário
+Cypress.Commands.add('removerUsuario', () => {
+    // Deleta esse usuário de teste
+    cy.get('[href="/delete_account"]').should('be.visible').click();
+
+    // Verifica que a conta foi deletada
+    cy.get('[data-qa="account-deleted"]').should('be.visible');
+    cy.get('[data-qa="continue-button"]').should('be.visible').click();
+});
+
+// Loga com um usuário
+Cypress.Commands.add('logarUsuario', (email_usuario, senha) => {
+    // Colocar os dados de acesso para login do usuario previamente cadastrado
+    cy.get('[data-qa="login-email"]').should('be.visible').clear().type(email_usuario);
+    cy.get('[data-qa="login-password"]').should('be.visible').clear().type(senha);
+
+    // Aperta o botão para fazer o login
+    cy.get('[data-qa="login-button"]').should('be.visible').click();
 });
