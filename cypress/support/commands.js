@@ -107,3 +107,8 @@ Cypress.Commands.add('logarUsuario', (email_usuario, senha) => {
     // Aperta o botão para fazer o login
     cy.get('[data-qa="login-button"]').should('be.visible').click();
 });
+
+// Desloga com um usuário
+Cypress.Commands.add('deslogarUsuario', () => {
+     cy.get('[href="/logout"]').should('be.visible').click();
+});
