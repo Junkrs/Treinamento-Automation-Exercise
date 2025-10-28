@@ -24,6 +24,7 @@ describe('Teste 6 - Preencher formulário do "fale conosco"', () => {
     cy.get('[data-qa="subject"]').should('be.visible').type(faker.lorem.words(3));
     cy.get('[data-qa="message"]').should('be.visible').type(faker.lorem.words(10));
     cy.get('input[type="file"]').should('be.visible').attachFile('arquivoTeste.txt');
+    cy.wait(2500); // Coloquei esse wait apenas para verificar se tudo foi digitado mesmo
     
     // Aperta o botão de submit do formulário
     cy.get('[data-qa="submit-button"]').should('be.visible').click();
