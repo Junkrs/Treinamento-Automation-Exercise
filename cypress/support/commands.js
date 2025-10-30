@@ -112,3 +112,42 @@ Cypress.Commands.add('logarUsuario', (email_usuario, senha) => {
 Cypress.Commands.add('deslogarUsuario', () => {
      cy.get('[href="/logout"]').should('be.visible').click();
 });
+
+// Adiciona um produto no carrinho
+Cypress.Commands.add('adicionarNoCarrinho', (id, quantidade) => {
+    cy.get(`[href="/product_details/${id}"]`).click();
+
+    // Seleciona a quantidade que ele quer
+    cy.get('[id="quantity"]')
+        .should('be.visible')
+        .click()
+        .clear()
+        .type(quantidade);
+
+    // Adiciona o produto no carrinho
+    cy.get('[class="btn btn-default cart"]').should('be.visible').click();
+
+    // Fecha o popup de que avisa sobre o pedido ter sido enviado ao carrinho
+    cy.get('[class="btn btn-success close-modal btn-block"]')
+        .should('be.visible')
+        .contains('Continue Shopping')
+        .click();
+    
+    // Volta para a pagina do carrinho
+    cy.get('[href="/products"]')
+        .first()
+        .should('be.visible')
+        .click();
+});
+
+// Adiciona um produto no carrinho
+Cypress.Commands.add('verificaDadosQuantitativosCarrinho', (id, quantidade, preco) => {
+    cy.get(`[id="product-${id}"]`)
+        .should('be.visible')
+        .within(() => {
+            // Verifica os quantitativos do carrinho em cada um dos produtos
+            cy.get('[class="cart_quantity"]').should('be.visible').contains(quantidade);
+            cy.get('[class="cart_price"]').should('be.visible').contains(preco);
+            cy.get('[class="cart_total"]').should('be.visible').contains(preco * quantidade);
+        });
+});

@@ -1,7 +1,7 @@
 import { email_usuario } from '../../cypress.env.json';
 
-describe('Teste 10 - Deve verificar se o usuário está inscrito na página principal', () => {
-  it('Digita o email e clica no botão', () => {
+describe('Teste 11 - Inscrever o email do usuário na página do carrinho', () => {
+  it('Inscreve o email do usuário na página do carrinho', () => {
     cy.visit('http://automationexercise.com');
 
     // Verifica se o header e o footer estão visíveis
