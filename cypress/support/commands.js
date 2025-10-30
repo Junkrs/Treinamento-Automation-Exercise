@@ -15,75 +15,78 @@ Cypress.Commands.add('registrarUsuarioCompleto', (usuario, email_usuario, senha,
     cy.get('[data-qa="signup-button"]')
         .should('be.visible')
         .click();
+    // Verifica se o usuário já não está logado
+    if (cy.get('[style="color: red;"]').should('be.visible').contains('Email Address already exist!')) {
+        cy.logarUsuario(email_usuario, senha);
+    } else {
+        // Completa os dados de cadastro:
+        cy.get('[class="radio-inline"]') // Genero
+            .should('be.visible')
+            .contains('Mr.')
+            .click();
+        cy.get('[data-qa="password"]') // Senha
+            .should('be.visible')
+            .type(senha);
+        // Data de nascimento
+        cy.get('[data-qa="days"]')
+            .should('be.visible')
+            .select('15');
+        cy.get('[data-qa="months"]')
+            .should('be.visible')
+            .select('October');
+        cy.get('[data-qa="years"]')
+            .should('be.visible')
+            .select('1902');
+        // Opções de receber emails e novidades
+        cy.get('[class="checkbox"]')
+            .contains('Sign up for our newsletter!')
+            .should('be.visible')
+            .click();
+        cy.get('[class="checkbox"]')
+            .contains('Receive special offers from our partners!')
+            .should('be.visible')
+            .click();
+        
+        // Completa os dados de endereço
+        cy.get('[data-qa="first_name"]')
+            .should('be.visible')
+            .type(nome);
+        cy.get('[data-qa="last_name"]')
+            .should('be.visible')
+            .type(sobrenome);
+        cy.get('[data-qa="company"]')
+            .should('be.visible')
+            .type(empresa);
+        cy.get('[data-qa="address"]')
+            .should('be.visible')
+            .type(endereco);
+        cy.get('[data-qa="country"]')
+            .should('be.visible')
+            .select(pais);
+        cy.get('[data-qa="state"]')
+            .should('be.visible')
+            .type(estado);
+        cy.get('[data-qa="city"]')
+            .should('be.visible')
+            .type(cidade);
+        cy.get('[data-qa="zipcode"]')
+            .should('be.visible')
+            .type(cep);
+        cy.get('[data-qa="mobile_number"]')
+            .should('be.visible')
+            .type(celular);
 
-    // Completa os dados de cadastro:
-    cy.get('[class="radio-inline"]') // Genero
-        .should('be.visible')
-        .contains('Mr.')
-        .click();
-    cy.get('[data-qa="password"]') // Senha
-        .should('be.visible')
-        .type(senha);
-    // Data de nascimento
-    cy.get('[data-qa="days"]')
-        .should('be.visible')
-        .select('15');
-    cy.get('[data-qa="months"]')
-        .should('be.visible')
-        .select('October');
-    cy.get('[data-qa="years"]')
-        .should('be.visible')
-        .select('1902');
-    // Opções de receber emails e novidades
-    cy.get('[class="checkbox"]')
-        .contains('Sign up for our newsletter!')
-        .should('be.visible')
-        .click();
-    cy.get('[class="checkbox"]')
-        .contains('Receive special offers from our partners!')
-        .should('be.visible')
-        .click();
-    
-    // Completa os dados de endereço
-    cy.get('[data-qa="first_name"]')
-        .should('be.visible')
-        .type(nome);
-    cy.get('[data-qa="last_name"]')
-        .should('be.visible')
-        .type(sobrenome);
-    cy.get('[data-qa="company"]')
-        .should('be.visible')
-        .type(empresa);
-    cy.get('[data-qa="address"]')
-        .should('be.visible')
-        .type(endereco);
-    cy.get('[data-qa="country"]')
-        .should('be.visible')
-        .select(pais);
-    cy.get('[data-qa="state"]')
-        .should('be.visible')
-        .type(estado);
-    cy.get('[data-qa="city"]')
-        .should('be.visible')
-        .type(cidade);
-    cy.get('[data-qa="zipcode"]')
-        .should('be.visible')
-        .type(cep);
-    cy.get('[data-qa="mobile_number"]')
-        .should('be.visible')
-        .type(celular);
+        // Aperta o botão para concluir o cadastro
+        cy.get('[data-qa="create-account"]')
+            .should('be.visible')
+            .click();
 
-    // Aperta o botão para concluir o cadastro
-    cy.get('[data-qa="create-account"]')
-        .should('be.visible')
-        .click();
+        // Verifica o texto de criação do usuário
+        cy.get('[data-qa="account-created"]').should('be.visible');
 
-    // Verifica o texto de criação do usuário
-    cy.get('[data-qa="account-created"]').should('be.visible');
-
-    // Clica no botão de continuar após a verificação da tela
-    cy.get('[data-qa="continue-button"]').should('be.visible').click();
-
+        // Clica no botão de continuar após a verificação da tela
+        cy.get('[data-qa="continue-button"]').should('be.visible').click();
+    }
     // Verifica se a label com o nome do usuário e se ela está visível e correta
     cy.get('[class="nav navbar-nav"]').should('be.visible').contains(`${usuario}`);
 });
@@ -149,5 +152,17 @@ Cypress.Commands.add('verificaDadosQuantitativosCarrinho', (id, quantidade, prec
             cy.get('[class="cart_quantity"]').should('be.visible').contains(quantidade);
             cy.get('[class="cart_price"]').should('be.visible').contains(preco);
             cy.get('[class="cart_total"]').should('be.visible').contains(preco * quantidade);
+        });
+});
+
+Cypress.Commands.add('verificaDadosDeEntrega', (usuario, empresa, endereco, cidade, estado, cep, celular) => {
+    cy.get(`[id="address_delivery"]`)
+        .should('be.visible')
+        .within(() => {
+            cy.get('[class="address_firstname address_lastname"]').should('be.visible').contains(`Mr. ${usuario}`);
+            //cy.get('[class="address_address1 address_address2"]').eq(1).should('be.visible').contains(empresa);
+            //cy.get('[class="address_address1 address_address2"]').eq(2).should('be.visible').contains(endereco);
+            cy.get('[class="address_city address_state_name address_postcode"]').should('be.visible').contains(`${cidade} ${estado} ${cep}`);
+            cy.get('[class="address_phone"]').should('be.visible').contains(celular);
         });
 });
