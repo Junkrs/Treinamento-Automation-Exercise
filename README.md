@@ -66,6 +66,29 @@ Treinamento-Automation-Exercise/
     "cidade": "Pangea Central",
     "cep": "00000-PA",
     "celular": "(12) 99123-4321"
+
+    "produtos": [
+        {
+            "id": 1,
+            "titulo": "Blue Top",
+            "categoria": "Category: Women > Tops",
+            "preco": 500,
+            "disponibilidade": " In Stock",
+            "condicao": " New",
+            "marca": " Polo",
+            "quantidade": 5
+        },
+        {
+            "id": 2,
+            "titulo": "Men Tshirt",
+            "categoria": "Category: Men > Tshirts",
+            "preco": 400,
+            "disponibilidade": "In Stock",
+            "condicao": "New",
+            "marca": "H&M",
+            "quantidade": 3
+        }
+    ]
 }
 ```
 
