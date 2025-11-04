@@ -13,6 +13,7 @@ import {
     celular,
     produtos 
 } from '../../cypress.env.json';
+import { faker } from '@faker-js/faker';
 
 describe('Teste 14 - Fazer pedidos e então cadastrar um usuário', () => {
     it('Vai adicionar os produtos no carrinho e depois cadastrar o usuário', () => {
@@ -74,5 +75,23 @@ describe('Teste 14 - Fazer pedidos e então cadastrar um usuário', () => {
 
         // Verifica se os dados de entrega estão corretos
         cy.verificaDadosDeEntrega(usuario, empresa, endereco, cidade, estado, cep, celular);
+
+        // Digita o texto de comentários sobre a compra
+        cy.get('[class="form-control"]')
+            .should('be.visible')
+            .clear()
+            .type(faker.lorem.words(20));
+        
+        // Aperta o botão para prosseguir
+        cy.get('[class="btn btn-default check_out"]').should('be.visible').click();
+
+        // Chama a função que processa o pagamento
+        cy.colocarDadosCartão(usuario, faker.number.int(123456789101112), faker.number.int(999));
+
+        // Finaliza o pedido
+        cy.get('[data-qa="continue-button"]').should('be.visible').click();
+
+        // Remove o usuário
+        cy.removerUsuario();
     });
 });

@@ -155,14 +155,27 @@ Cypress.Commands.add('verificaDadosQuantitativosCarrinho', (id, quantidade, prec
         });
 });
 
+// Verificar se os dados de entrega estão corretos
 Cypress.Commands.add('verificaDadosDeEntrega', (usuario, empresa, endereco, cidade, estado, cep, celular) => {
     cy.get(`[id="address_delivery"]`)
         .should('be.visible')
         .within(() => {
             cy.get('[class="address_firstname address_lastname"]').should('be.visible').contains(`Mr. ${usuario}`);
-            //cy.get('[class="address_address1 address_address2"]').eq(1).should('be.visible').contains(empresa);
-            //cy.get('[class="address_address1 address_address2"]').eq(2).should('be.visible').contains(endereco);
+            cy.get('[class="address_address1 address_address2"]').should('be.visible').contains(empresa);
+            cy.get('[class="address_address1 address_address2"]').should('be.visible').contains(endereco);
             cy.get('[class="address_city address_state_name address_postcode"]').should('be.visible').contains(`${cidade} ${estado} ${cep}`);
             cy.get('[class="address_phone"]').should('be.visible').contains(celular);
         });
+});
+
+// Insere os dados do cartão do usuário
+Cypress.Commands.add('colocarDadosCartão', (usuario, numCartao, codigoSeguranca) => {
+    cy.get('[data-qa="name-on-card"]').should('be.visible').clear().type(usuario);
+    cy.get('[data-qa="card-number"]').should('be.visible').clear().type(numCartao);
+    cy.get('[data-qa="cvc"]').should('be.visible').clear().type(codigoSeguranca);
+    cy.get('[data-qa="expiry-month"]').should('be.visible').clear().type('12/26');
+    cy.get('[data-qa="expiry-year"]').should('be.visible').clear().type('2026');
+
+    // Aperta o botão
+    cy.get('[data-qa="pay-button"]').should('be.visible').click();
 });
