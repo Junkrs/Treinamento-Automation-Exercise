@@ -12,7 +12,7 @@
     "rules": {
         "indent": [
             "error",
-            2
+            4
         ],
         "linebreak-style": [
             "error",
@@ -24,10 +24,13 @@
         ],
         "semi": [
             "error",
-            "never"
+            "always"
         ],
         "no-trailing-spaces": [
             "error"
+        ],
+        "no-unused-vars": [
+            "off"
         ]
     }
 }

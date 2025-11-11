@@ -1,11 +1,14 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require('cypress');
+const { verifyDownloadTasks } = require('cy-verify-downloads');
+const { removeDirectory } = require('cypress-delete-downloads-folder');
 
 module.exports = defineConfig({
-  projectId: "qoqtyk",
-  e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
+    projectId: 'zemxwm',
+    e2e: {
+        setupNodeEvents(on, config) {
+            on('task', verifyDownloadTasks);
+            on('task', { removeDirectory });
+        },
+        baseUrl: 'https://automationexercise.com/'
     },
-    baseUrl: 'https://automationexercise.com/'
-  },
 });

@@ -13,10 +13,9 @@ import {
     celular,
     produtos
 } from '../../cypress.env.json';
-import { faker } from '@faker-js/faker';
 
-describe('Teste 16 - Vai logar com um usuário e fazer os pedidos', () => {
-    it('Primeiro ocorre o cadastro do usuário, logout, login e então os produtos serão pedidos', () => {
+describe('Teste 23 - Vai verificar os detalhes do endereço e fazer o checkout', () => {
+    it('Após o login, o usuário vai adicionar produtos no carrinho e verificar se os dados de endereço estão corretos no checkout', () => {
         const produtoVisitado1 = produtos.find(produtos => produtos.id === 1); // Alterar aqui o id caso queira outros produtos
         const produtoVisitado2 = produtos.find(produtos => produtos.id === 2);
         cy.visit('http://automationexercise.com');
@@ -30,12 +29,6 @@ describe('Teste 16 - Vai logar com um usuário e fazer os pedidos', () => {
 
         // Chama a função que registra o usuário
         cy.registrarUsuarioCompleto(usuario, email_usuario, senha, nome, sobrenome, empresa, endereco, pais, estado, cidade, cep, celular);
-
-        // Deslogar usuário
-        cy.deslogarUsuario();
-
-        // Logar o usuário
-        cy.logarUsuario(email_usuario, senha);
 
         // Vai para a pagina dos produtos
         cy.get('[href="/products"]')
@@ -55,35 +48,12 @@ describe('Teste 16 - Vai logar com um usuário e fazer os pedidos', () => {
             .should('be.visible')
             .click();
 
-        // Verifica se os valores dentro do carrinho estão de acordo com o esperado
-        cy.get('[class="table-responsive cart_info"]')
-            .should('be.visible')
-            .and('contain', produtoVisitado1.titulo)
-            .and('contain', produtoVisitado2.titulo);
-        // Verifica o carrinho para cada produto
-        cy.verificaDadosQuantitativosCarrinho(produtoVisitado1.id, produtoVisitado1.quantidade, produtoVisitado1.preco);
-        cy.verificaDadosQuantitativosCarrinho(produtoVisitado2.id, produtoVisitado2.quantidade, produtoVisitado2.preco);
-
         // Clica no botão de checkout para completar o pedido
         cy.get('[class="btn btn-default check_out"]').should('be.visible').click();
 
-        // Verifica se os dados de entrega estão corretos
+        // Verifica se os dados de entrega e cobrança estão corretos
         cy.verificaDadosDeEntrega(usuario, empresa, endereco, cidade, estado, cep, celular);
-
-        // Digita o texto de comentários sobre a compra
-        cy.get('[class="form-control"]')
-            .should('be.visible')
-            .clear()
-            .type(faker.lorem.words(20));
-
-        // Aperta o botão para prosseguir
-        cy.get('[class="btn btn-default check_out"]').should('be.visible').click();
-
-        // Chama a função que processa o pagamento
-        cy.colocarDadosCartão(usuario, faker.number.int(123456789101112), faker.number.int(999));
-
-        // Finaliza o pedido
-        cy.get('[data-qa="continue-button"]').should('be.visible').click();
+        cy.verificaDadosDeCobranca(usuario, empresa, endereco, cidade, estado, cep, celular);
 
         // Remove o usuário
         cy.removerUsuario();

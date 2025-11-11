@@ -5,6 +5,8 @@
   "rules": {
     "cypress/no-force": "error",
     "cypress/assertion-before-screenshot": "error",
-    "cypress/no-pause": "error"
+    "cypress/no-pause": "error",
+    "cypress/unsafe-to-chain-command": "off",
+    "cypress/no-unnecessary-waiting": "off"
   }
 }

@@ -15,8 +15,8 @@ import {
 } from '../../cypress.env.json';
 import { faker } from '@faker-js/faker';
 
-describe('Teste 14 - Fazer pedidos e então cadastrar um usuário', () => {
-    it('Vai adicionar os produtos no carrinho e depois cadastrar o usuário', () => {
+describe('Teste 24 - Baixar recibo após a compra', () => {
+    it('Vai inserir itens no carrinho, ir para pagamento, logar e depois baixar o recibo de pagamento', () => {
         const produtoVisitado1 = produtos.find(produtos => produtos.id === 1); // Alterar aqui o id caso queira outros produtos
         const produtoVisitado2 = produtos.find(produtos => produtos.id === 2);
         cy.visit('http://automationexercise.com');
@@ -89,7 +89,21 @@ describe('Teste 14 - Fazer pedidos e então cadastrar um usuário', () => {
         cy.colocarDadosCartão(usuario, faker.number.int(123456789101112), faker.number.int(999));
 
         // Finaliza o pedido
-        cy.get('[data-qa="continue-button"]').should('be.visible').click();
+        cy.get('[class="btn btn-default check_out"]')
+            .should('be.visible')
+            .contains('Download Invoice')
+            .click();
+
+        // Verifica se o arquivo de recibo foi devidamente baixado
+        cy.verifyDownload('invoice.txt');
+
+        // Verifica se os valores do recibo estão corretos
+        cy.readFile('cypress/downloads/invoice.txt').then((report) => {
+            expect(report).to.contain((produtoVisitado1.preco * produtoVisitado1.quantidade) + (produtoVisitado2.preco * produtoVisitado2.quantidade));
+        });
+
+        // Remove os itens da pasta de downloads
+        cy.deleteDownloadsFolder();
 
         // Remove o usuário
         cy.removerUsuario();
