@@ -1,10 +1,7 @@
-import {
-    email_usuario,
-    nome,
-} from '../../cypress.env.json';
 import { faker } from '@faker-js/faker';
 
 describe('Teste 6 - Preencher formulário do "fale conosco"', () => {
+    const user = Cypress.env("user");
     it('Verifica se o site está visível e preenche o formulário', () => {
         cy.visit('http://automationexercise.com');
 
@@ -19,8 +16,8 @@ describe('Teste 6 - Preencher formulário do "fale conosco"', () => {
         cy.get('[class="title text-center"]').contains('Get In Touch').should('be.visible');
 
         // Completa os dados necessários para o formulário de contato:
-        cy.get('[data-qa="name"]').should('be.visible').type(nome);
-        cy.get('[data-qa="email"]').should('be.visible').type(email_usuario);
+        cy.get('[data-qa="name"]').should('be.visible').type(user.nome);
+        cy.get('[data-qa="email"]').should('be.visible').type(user.email_usuario);
         cy.get('[data-qa="subject"]').should('be.visible').type(faker.lorem.words(3));
         cy.get('[data-qa="message"]').should('be.visible').type(faker.lorem.words(10));
         cy.get('input[type="file"]').should('be.visible').attachFile('arquivoTeste.txt');

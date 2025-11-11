@@ -1,6 +1,5 @@
-import { email_usuario } from '../../cypress.env.json';
-
 describe('Teste 11 - Inscrever o email do usuário na página do carrinho', () => {
+    const user = Cypress.env("user");
     it('Inscreve o email do usuário na página do carrinho', () => {
         cy.visit('http://automationexercise.com');
 
@@ -18,7 +17,7 @@ describe('Teste 11 - Inscrever o email do usuário na página do carrinho', () =
         cy.get('[id="susbscribe_email"]')
             .should('be.visible')
             .clear()
-            .type(email_usuario);
+            .type(user.email_usuario);
         cy.get('[id="subscribe"]').should('be.visible').click();
 
         // Verifica a mensagem de confirmação

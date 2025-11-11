@@ -1,7 +1,23 @@
 // Arquivos de comandos custom
 
 // Registrar um usuario
-Cypress.Commands.add('registrarUsuarioCompleto', (usuario, email_usuario, senha, nome, sobrenome, empresa, endereco, pais, estado, cidade, cep, celular) => {
+Cypress.Commands.add('registrarUsuarioCompleto', (user) => {
+    // Pega os valores salvos dentro do objeto user
+    const {
+        usuario,
+        email_usuario,
+        senha,
+        nome,
+        sobrenome,
+        empresa,
+        endereco,
+        pais,
+        estado,
+        cidade,
+        cep,
+        celular
+    } = user;
+    
     // Verifica o campo do nome e digita
     cy.get('[data-qa="signup-name"]')
         .should('be.visible')

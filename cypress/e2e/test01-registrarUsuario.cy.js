@@ -1,19 +1,5 @@
-import {
-    usuario,
-    senha,
-    email_usuario,
-    nome,
-    sobrenome,
-    empresa,
-    endereco,
-    pais,
-    estado,
-    cidade,
-    cep,
-    celular
-} from '../../cypress.env.json';
-
 describe('Teste 1 - Registra o usuário', () => {
+    const user = Cypress.env("user");
     it('Verifica se o site está visível e faz o registro e remoção do usuário', () => {
         cy.visit('http://automationexercise.com');
 
@@ -25,8 +11,8 @@ describe('Teste 1 - Registra o usuário', () => {
         cy.get('[href="/login"]').should('be.visible').click();
 
         // Chama a função que registra o usuário
-        // Coisa mais feia que eu ja fiz
-        cy.registrarUsuarioCompleto(usuario, email_usuario, senha, nome, sobrenome, empresa, endereco, pais, estado, cidade, cep, celular);
+        // Não está mais tão feio assim
+        cy.registrarUsuarioCompleto(user);
 
         // Remover o usuário para próximos testes
         cy.removerUsuario();

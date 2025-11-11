@@ -1,19 +1,5 @@
-import {
-    usuario,
-    senha,
-    email_usuario,
-    nome,
-    sobrenome,
-    empresa,
-    endereco,
-    pais,
-    estado,
-    cidade,
-    cep,
-    celular
-} from '../../cypress.env.json';
-
 describe('Teste 2 - Logar o usuário com email e senha corretos', () => {
+    const user = Cypress.env("user");
     it('Cadastra o usuário, desloga, loga e depois deleta o registro', () => {
         cy.visit('http://automationexercise.com');
 
@@ -25,14 +11,14 @@ describe('Teste 2 - Logar o usuário com email e senha corretos', () => {
         cy.get('[href="/login"]').should('be.visible').click();
 
         // Registra o usuário para fazer o teste de login em seguida
-        cy.registrarUsuarioCompleto(usuario, email_usuario, senha, nome, sobrenome, empresa, endereco, pais, estado, cidade, cep, celular);
+        cy.registrarUsuarioCompleto(user);
 
         // Entra na página de login
         cy.get('[href="/logout"]').should('be.visible').click();
 
         // Colocar os dados de acesso para login do usuario previamente cadastrado
-        cy.get('[data-qa="login-email"]').should('be.visible').type(email_usuario);
-        cy.get('[data-qa="login-password"]').should('be.visible').type(senha);
+        cy.get('[data-qa="login-email"]').should('be.visible').type(user.email_usuario);
+        cy.get('[data-qa="login-password"]').should('be.visible').type(user.senha);
 
         // Aperta o botão para fazer o login
         cy.get('[data-qa="login-button"]').should('be.visible').click();

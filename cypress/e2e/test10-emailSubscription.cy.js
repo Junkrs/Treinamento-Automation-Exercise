@@ -1,6 +1,5 @@
-import { email_usuario } from '../../cypress.env.json';
-
 describe('Teste 10 - Deve verificar se o usuário está inscrito na página principal', () => {
+    const user = Cypress.env("user");
     it('Digita o email e clica no botão', () => {
         cy.visit('http://automationexercise.com');
 
@@ -12,7 +11,7 @@ describe('Teste 10 - Deve verificar se o usuário está inscrito na página prin
         cy.get('[id="susbscribe_email"]')
             .should('be.visible')
             .clear()
-            .type(email_usuario);
+            .type(user.email_usuario);
         cy.get('[id="subscribe"]').should('be.visible').click();
 
         // Verifica a mensagem de confirmação

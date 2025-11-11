@@ -1,19 +1,5 @@
-import {
-    usuario,
-    senha,
-    email_usuario,
-    nome,
-    sobrenome,
-    empresa,
-    endereco,
-    pais,
-    estado,
-    cidade,
-    cep,
-    celular
-} from '../../cypress.env.json';
-
 describe('Teste 3 - Logar usuário com email e senha incorretos', () => {
+    const user = Cypress.env("user");
     it('Cadastra o usuário, desloga, loga de forma incorreta e verifica o erro', () => {
         cy.visit('http://automationexercise.com');
 
@@ -25,7 +11,7 @@ describe('Teste 3 - Logar usuário com email e senha incorretos', () => {
         cy.get('[href="/login"]').should('be.visible').click();
 
         // Registra o usuário para fazer o teste de login em seguida
-        cy.registrarUsuarioCompleto(usuario, email_usuario, senha, nome, sobrenome, empresa, endereco, pais, estado, cidade, cep, celular);
+        cy.registrarUsuarioCompleto(user);
 
         // Entra na página de login
         cy.get('[href="/logout"]').should('be.visible').click();
@@ -37,7 +23,7 @@ describe('Teste 3 - Logar usuário com email e senha incorretos', () => {
         cy.get('[class="login-form"]').contains('Your email or password is incorrect!').should('be.visible');
 
         // Logar usuário corretamente
-        cy.logarUsuario(email_usuario, senha);
+        cy.logarUsuario(user.email_usuario, user.senha);
 
         // Deleta esse usuário de teste
         cy.removerUsuario();
