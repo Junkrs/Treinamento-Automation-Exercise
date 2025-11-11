@@ -87,6 +87,16 @@ Treinamento-Automation-Exercise/
             "condicao": "New",
             "marca": "H&M",
             "quantidade": 3
+        },
+        {
+            "id": 5,
+            "titulo": "Winter Top",
+            "categoria": "Category: Women > Tops",
+            "preco": 600,
+            "disponibilidade": "In Stock",
+            "condicao": "New",
+            "marca": "Mast & Harbour",
+            "quantidade": 1
         }
     ]
 }
