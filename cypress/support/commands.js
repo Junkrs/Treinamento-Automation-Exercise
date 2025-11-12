@@ -241,3 +241,21 @@ Cypress.Commands.add('colocarDadosCartão', (user, numCartao, codigoSeguranca) =
     // Aperta o botão
     cy.get('[data-qa="pay-button"]').should('be.visible').click();
 });
+
+// Busca todos os produtos via API
+Cypress.Commands.add('api_chamarTodosProdutos', () => {
+    cy.api({
+    // Parametros da requisição de API
+    method: 'GET',
+    url: 'api/productsList'
+  });
+});
+
+// Busca todos os produtos via API
+Cypress.Commands.add('api_postarTodosProdutos', () => {
+    cy.api({
+    // Parametros da requisição de API
+    method: 'POST',
+    url: 'api/productsList'
+  });
+});

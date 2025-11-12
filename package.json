@@ -7,7 +7,8 @@
     "test:cloud": "cypress run --record --tag 'desktop'"
   },
   "dependencies": {
-    "cypress": "^14.5.4"
+    "cypress": "^14.5.4",
+    "cypress-plugin-api": "^2.11.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.1.0",
