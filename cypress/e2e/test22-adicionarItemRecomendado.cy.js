@@ -1,9 +1,6 @@
-import {
-    produtos
-} from '../../cypress.env.json';
-
 describe('Teste 22 - Adicionar no carrinho um dos itens recomendados', () => {
     it('Vai verificar os itens recomendados e irá colocar no carrinho', () => {
+        const produtos = Cypress.env("produtos");
         const produtoRecomendado = produtos.find(produtos => produtos.id === 5);
         cy.visit('http://automationexercise.com');
 

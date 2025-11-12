@@ -1,11 +1,8 @@
-import {
-    usuario,
-    email_usuario,
-    produtos
-} from '../../cypress.env.json';
 import { faker } from '@faker-js/faker';
 
 describe('Teste 21 - Adicionar uma review em um produto', () => {
+    const user = Cypress.env("user");
+    const produtos = Cypress.env("produtos");
     it('Vai acessar um produto e escrever uma review, e depois enviar', () => {
         const produtoAvaliado = produtos.find(produtos => produtos.id === 1);
         cy.visit('http://automationexercise.com');
@@ -26,11 +23,11 @@ describe('Teste 21 - Adicionar uma review em um produto', () => {
         cy.get('[id="name"]')
             .should('be.visible')
             .clear()
-            .type(usuario);
+            .type(user.usuario);
         cy.get('[id="email"]')
             .should('be.visible')
             .clear()
-            .type(email_usuario);
+            .type(user.email_usuario);
         cy.get('[id="review"]')
             .should('be.visible')
             .clear()

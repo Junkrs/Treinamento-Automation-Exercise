@@ -1,5 +1,3 @@
-import { produtos } from '../../cypress.env.json';
-// Continuar a arrumar os testes a partir daqui
 describe('Teste 13 - Verificar a quantidade de produtos no carrinho', () => {
     it('Vai acessar um produto, inserir no carrinho e verificar se a quantidade está correta', () => {
         const produtos = Cypress.env("produtos");

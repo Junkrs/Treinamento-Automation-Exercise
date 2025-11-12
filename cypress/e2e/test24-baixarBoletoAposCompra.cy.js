@@ -1,21 +1,8 @@
-import {
-    usuario,
-    senha,
-    email_usuario,
-    nome,
-    sobrenome,
-    empresa,
-    endereco,
-    pais,
-    estado,
-    cidade,
-    cep,
-    celular,
-    produtos
-} from '../../cypress.env.json';
 import { faker } from '@faker-js/faker';
 
 describe('Teste 24 - Baixar recibo após a compra', () => {
+    const user = Cypress.env("user");
+    const produtos = Cypress.env("produtos");
     it('Vai inserir itens no carrinho, ir para pagamento, logar e depois baixar o recibo de pagamento', () => {
         const produtoVisitado1 = produtos.find(produtos => produtos.id === 1); // Alterar aqui o id caso queira outros produtos
         const produtoVisitado2 = produtos.find(produtos => produtos.id === 2);
@@ -62,7 +49,7 @@ describe('Teste 24 - Baixar recibo após a compra', () => {
             .click();
 
         // Função de registro do usuário
-        cy.registrarUsuarioCompleto(usuario, email_usuario, senha, nome, sobrenome, empresa, endereco, pais, estado, cidade, cep, celular);
+        cy.registrarUsuarioCompleto(user);
 
         // Aperta o botão para acessar a página do carrinho
         cy.get('[href="/view_cart"]')
@@ -74,7 +61,7 @@ describe('Teste 24 - Baixar recibo após a compra', () => {
         cy.get('[class="btn btn-default check_out"]').should('be.visible').click();
 
         // Verifica se os dados de entrega estão corretos
-        cy.verificaDadosDeEntrega(usuario, empresa, endereco, cidade, estado, cep, celular);
+        cy.verificaDadosDeEntrega(user);
 
         // Digita o texto de comentários sobre a compra
         cy.get('[class="form-control"]')
@@ -86,7 +73,7 @@ describe('Teste 24 - Baixar recibo após a compra', () => {
         cy.get('[class="btn btn-default check_out"]').should('be.visible').click();
 
         // Chama a função que processa o pagamento
-        cy.colocarDadosCartão(usuario, faker.number.int(123456789101112), faker.number.int(999));
+        cy.colocarDadosCartão(user, faker.number.int(123456789101112), faker.number.int(999));
 
         // Finaliza o pedido
         cy.get('[class="btn btn-default check_out"]')

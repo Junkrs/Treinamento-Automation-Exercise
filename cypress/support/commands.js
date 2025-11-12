@@ -38,8 +38,7 @@ Cypress.Commands.add('registrarUsuarioCompleto', (user) => {
             // Verifica a existência do texto
             cy.get('[style="color: red;"]').then(($el) => {
                 if ($el.text().includes('Email Address already exist!')) {
-                    cy.log('Usuário já existe, fazendo login...');
-                    cy.logarUsuario(email_usuario, senha);
+                    cy.logarUsuario(user);
                 }
             });
         } else {
@@ -127,7 +126,11 @@ Cypress.Commands.add('removerUsuario', () => {
 });
 
 // Loga com um usuário
-Cypress.Commands.add('logarUsuario', (email_usuario, senha) => {
+Cypress.Commands.add('logarUsuario', (user) => {
+    const {
+        email_usuario,
+        senha,
+    } = user;
     // Colocar os dados de acesso para login do usuario previamente cadastrado
     cy.get('[data-qa="login-email"]').should('be.visible').clear().type(email_usuario);
     cy.get('[data-qa="login-password"]').should('be.visible').clear().type(senha);
@@ -181,7 +184,16 @@ Cypress.Commands.add('verificaDadosQuantitativosCarrinho', (id, quantidade, prec
 });
 
 // Verificar se os dados de entrega estão corretos
-Cypress.Commands.add('verificaDadosDeEntrega', (usuario, empresa, endereco, cidade, estado, cep, celular) => {
+Cypress.Commands.add('verificaDadosDeEntrega', (user) => {
+    const {
+        usuario, 
+        empresa, 
+        endereco, 
+        cidade, 
+        estado, 
+        cep, 
+        celular
+    } = user;
     cy.get('[id="address_delivery"]')
         .should('be.visible')
         .within(() => {
@@ -194,7 +206,16 @@ Cypress.Commands.add('verificaDadosDeEntrega', (usuario, empresa, endereco, cida
 });
 
 // Verificar se os dados de cobranca estão corretos
-Cypress.Commands.add('verificaDadosDeCobranca', (usuario, empresa, endereco, cidade, estado, cep, celular) => {
+Cypress.Commands.add('verificaDadosDeCobranca', (user) => {
+    const {
+        usuario, 
+        empresa, 
+        endereco, 
+        cidade, 
+        estado, 
+        cep, 
+        celular
+    } = user;
     cy.get('[id="address_invoice"]')
         .should('be.visible')
         .within(() => {
@@ -207,7 +228,10 @@ Cypress.Commands.add('verificaDadosDeCobranca', (usuario, empresa, endereco, cid
 });
 
 // Insere os dados do cartão do usuário
-Cypress.Commands.add('colocarDadosCartão', (usuario, numCartao, codigoSeguranca) => {
+Cypress.Commands.add('colocarDadosCartão', (user, numCartao, codigoSeguranca) => {
+    const {
+        usuario, 
+    } = user;
     cy.get('[data-qa="name-on-card"]').should('be.visible').clear().type(usuario);
     cy.get('[data-qa="card-number"]').should('be.visible').clear().type(numCartao);
     cy.get('[data-qa="cvc"]').should('be.visible').clear().type(codigoSeguranca);

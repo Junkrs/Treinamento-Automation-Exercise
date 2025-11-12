@@ -1,22 +1,9 @@
-import {
-    usuario,
-    senha,
-    email_usuario,
-    nome,
-    sobrenome,
-    empresa,
-    endereco,
-    pais,
-    estado,
-    cidade,
-    cep,
-    celular,
-    produtos
-} from '../../cypress.env.json';
 import { faker } from '@faker-js/faker';
 
 describe('Teste 16 - Vai logar com um usuário e fazer os pedidos', () => {
     it('Primeiro ocorre o cadastro do usuário, logout, login e então os produtos serão pedidos', () => {
+        const user = Cypress.env("user");
+        const produtos = Cypress.env("produtos");
         const produtoVisitado1 = produtos.find(produtos => produtos.id === 1); // Alterar aqui o id caso queira outros produtos
         const produtoVisitado2 = produtos.find(produtos => produtos.id === 2);
         cy.visit('http://automationexercise.com');
@@ -29,13 +16,13 @@ describe('Teste 16 - Vai logar com um usuário e fazer os pedidos', () => {
         cy.get('[href="/login"]').should('be.visible').click();
 
         // Chama a função que registra o usuário
-        cy.registrarUsuarioCompleto(usuario, email_usuario, senha, nome, sobrenome, empresa, endereco, pais, estado, cidade, cep, celular);
+        cy.registrarUsuarioCompleto(user);
 
         // Deslogar usuário
         cy.deslogarUsuario();
 
         // Logar o usuário
-        cy.logarUsuario(email_usuario, senha);
+        cy.logarUsuario(user);
 
         // Vai para a pagina dos produtos
         cy.get('[href="/products"]')
@@ -68,7 +55,7 @@ describe('Teste 16 - Vai logar com um usuário e fazer os pedidos', () => {
         cy.get('[class="btn btn-default check_out"]').should('be.visible').click();
 
         // Verifica se os dados de entrega estão corretos
-        cy.verificaDadosDeEntrega(usuario, empresa, endereco, cidade, estado, cep, celular);
+        cy.verificaDadosDeEntrega(user);
 
         // Digita o texto de comentários sobre a compra
         cy.get('[class="form-control"]')
@@ -80,7 +67,7 @@ describe('Teste 16 - Vai logar com um usuário e fazer os pedidos', () => {
         cy.get('[class="btn btn-default check_out"]').should('be.visible').click();
 
         // Chama a função que processa o pagamento
-        cy.colocarDadosCartão(usuario, faker.number.int(123456789101112), faker.number.int(999));
+        cy.colocarDadosCartão(user, faker.number.int(123456789101112), faker.number.int(999));
 
         // Finaliza o pedido
         cy.get('[data-qa="continue-button"]').should('be.visible').click();

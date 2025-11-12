@@ -25,7 +25,7 @@ describe('Teste 5 - Registrar um novo usuário, deslogar e depois tentar logar c
         cy.get('[class="login-form"]').contains('Your email or password is incorrect!').should('be.visible');
 
         // Deleta esse usuário de teste
-        cy.logarUsuario(user.email_usuario, user.senha);
+        cy.logarUsuario(user);
         cy.removerUsuario();
     });
 });

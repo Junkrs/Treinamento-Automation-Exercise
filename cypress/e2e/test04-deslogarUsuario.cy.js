@@ -27,7 +27,7 @@ describe('Teste 4 - Deslogar usuário com email e senha', () => {
         cy.deslogarUsuario();
 
         // Loga o usuário com informações corretas e depois remover a conta
-        cy.logarUsuario(user.email_usuario, user.senha);
+        cy.logarUsuario(user);
         cy.removerUsuario();
     });
 });
