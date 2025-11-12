@@ -1,5 +1,5 @@
 describe('Teste 5 - Registrar um novo usuário, deslogar e depois tentar logar com outro email', () => {
-    const user = Cypress.env("user");
+    const user = Cypress.env('user');
     it('Cadastra o usuário, desloga, loga, erra, e depois erra o registro', () => {
         cy.visit('http://automationexercise.com');
 

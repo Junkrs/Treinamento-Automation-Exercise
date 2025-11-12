@@ -1,5 +1,5 @@
 describe('Teste 2 - Logar o usuário com email e senha corretos', () => {
-    const user = Cypress.env("user");
+    const user = Cypress.env('user');
     it('Cadastra o usuário, desloga, loga e depois deleta o registro', () => {
         cy.visit('http://automationexercise.com');
 

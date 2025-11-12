@@ -1,5 +1,5 @@
 describe('Teste 11 - Inscrever o email do usuário na página do carrinho', () => {
-    const user = Cypress.env("user");
+    const user = Cypress.env('user');
     it('Inscreve o email do usuário na página do carrinho', () => {
         cy.visit('http://automationexercise.com');
 

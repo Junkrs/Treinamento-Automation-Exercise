@@ -2,8 +2,8 @@ import { faker } from '@faker-js/faker';
 
 describe('Teste 16 - Vai logar com um usuário e fazer os pedidos', () => {
     it('Primeiro ocorre o cadastro do usuário, logout, login e então os produtos serão pedidos', () => {
-        const user = Cypress.env("user");
-        const produtos = Cypress.env("produtos");
+        const user = Cypress.env('user');
+        const produtos = Cypress.env('produtos');
         const produtoVisitado1 = produtos.find(produtos => produtos.id === 1); // Alterar aqui o id caso queira outros produtos
         const produtoVisitado2 = produtos.find(produtos => produtos.id === 2);
         cy.visit('http://automationexercise.com');

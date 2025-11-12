@@ -1,6 +1,6 @@
 describe('Teste 9 - Vai pesquisar um item e verificar as respostas', () => {
     it('Digita o termo desejado e compara com as respostas visíveis pelo site', () => {
-        const produtos = Cypress.env("produtos");
+        const produtos = Cypress.env('produtos');
         const produtoPesquisado = produtos.find(produtos => produtos.id === 1);
         const termoPesquisado = produtoPesquisado.titulo; // Basta alterar aqui para outro termo de pesquisa
         cy.visit('http://automationexercise.com');

@@ -1,6 +1,6 @@
 describe('Teste 12 - Adicionar produtos no carrinho', () => {
     it('Vai adicionar dois produtos no carrinho e depois verificar se estão corretamente inseridos', () => {
-        const produtos = Cypress.env("produtos");
+        const produtos = Cypress.env('produtos');
         const produtoVisitado1 = produtos.find(produtos => produtos.id === 1);
         const produtoVisitado2 = produtos.find(produtos => produtos.id === 2);
         cy.visit('http://automationexercise.com');

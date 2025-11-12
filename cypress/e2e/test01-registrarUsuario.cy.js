@@ -1,5 +1,5 @@
 describe('Teste 1 - Registra o usuário', () => {
-    const user = Cypress.env("user");
+    const user = Cypress.env('user');
     it('Verifica se o site está visível e faz o registro e remoção do usuário', () => {
         cy.visit('http://automationexercise.com');
 

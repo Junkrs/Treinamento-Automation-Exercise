@@ -1,5 +1,5 @@
 describe('Teste 10 - Deve verificar se o usuário está inscrito na página principal', () => {
-    const user = Cypress.env("user");
+    const user = Cypress.env('user');
     it('Digita o email e clica no botão', () => {
         cy.visit('http://automationexercise.com');
 

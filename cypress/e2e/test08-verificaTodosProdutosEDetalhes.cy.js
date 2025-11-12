@@ -1,6 +1,6 @@
 describe('Teste 8 - Vai verificar a lista de todos os produtos e os detalhes', () => {
     it('Entra na lista de produtos, depois entra no primeiro produto e verifica seus detalhes', () => {
-        const produtos = Cypress.env("produtos");
+        const produtos = Cypress.env('produtos');
         const produtoVisitado = produtos.find(produtos => produtos.id === 1);
         cy.visit('http://automationexercise.com');
 

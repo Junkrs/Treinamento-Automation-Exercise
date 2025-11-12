@@ -1,5 +1,5 @@
 describe('Teste 4 - Deslogar usuário com email e senha', () => {
-    const user = Cypress.env("user");
+    const user = Cypress.env('user');
     it('Cadastra o usuário, desloga, loga de forma e remove o usuário depois', () => {
         cy.visit('http://automationexercise.com');
 

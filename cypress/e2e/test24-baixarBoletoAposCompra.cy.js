@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 
 describe('Teste 24 - Baixar recibo após a compra', () => {
-    const user = Cypress.env("user");
-    const produtos = Cypress.env("produtos");
+    const user = Cypress.env('user');
+    const produtos = Cypress.env('produtos');
     it('Vai inserir itens no carrinho, ir para pagamento, logar e depois baixar o recibo de pagamento', () => {
         const produtoVisitado1 = produtos.find(produtos => produtos.id === 1); // Alterar aqui o id caso queira outros produtos
         const produtoVisitado2 = produtos.find(produtos => produtos.id === 2);

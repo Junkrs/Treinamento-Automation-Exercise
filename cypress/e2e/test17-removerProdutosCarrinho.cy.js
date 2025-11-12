@@ -1,6 +1,6 @@
 describe('Teste 17 - Adicionar produtos no carrinho e depois remover', () => {
     it('Vai adicionar dois produtos no carrinho e depois verificar se estão corretamente inseridos e por fim, removê-los', () => {
-        const produtos = Cypress.env("produtos");
+        const produtos = Cypress.env('produtos');
         const produtoVisitado1 = produtos.find(produtos => produtos.id === 1);
         cy.visit('http://automationexercise.com');
 

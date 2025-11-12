@@ -1,7 +1,7 @@
 describe('Teste 20 - Vai pesquisar por produtos e depois do login, verificar o carrinho', () => {
     it('Depois de adicionar os produtos no carrinho, vai fazer login e verificar que todos estão lá', () => {
-        const user = Cypress.env("user");
-        const produtos = Cypress.env("produtos");
+        const user = Cypress.env('user');
+        const produtos = Cypress.env('produtos');
         const produto1 = produtos.find(produtos => produtos.id === 1);
         const produto2 = produtos.find(produtos => produtos.id === 2);
         cy.visit('http://automationexercise.com');
@@ -54,7 +54,7 @@ describe('Teste 20 - Vai pesquisar por produtos e depois do login, verificar o c
 
         // Chama a função que registra o usuário
         cy.registrarUsuarioCompleto(user);
-        
+
         // Vai para a pagina do carrinho
         cy.get('[href="/view_cart"]')
             .first()

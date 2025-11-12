@@ -17,7 +17,7 @@ Cypress.Commands.add('registrarUsuarioCompleto', (user) => {
         cep,
         celular
     } = user;
-    
+
     // Verifica o campo do nome e digita
     cy.get('[data-qa="signup-name"]')
         .should('be.visible')
@@ -186,12 +186,12 @@ Cypress.Commands.add('verificaDadosQuantitativosCarrinho', (id, quantidade, prec
 // Verificar se os dados de entrega estão corretos
 Cypress.Commands.add('verificaDadosDeEntrega', (user) => {
     const {
-        usuario, 
-        empresa, 
-        endereco, 
-        cidade, 
-        estado, 
-        cep, 
+        usuario,
+        empresa,
+        endereco,
+        cidade,
+        estado,
+        cep,
         celular
     } = user;
     cy.get('[id="address_delivery"]')
@@ -208,12 +208,12 @@ Cypress.Commands.add('verificaDadosDeEntrega', (user) => {
 // Verificar se os dados de cobranca estão corretos
 Cypress.Commands.add('verificaDadosDeCobranca', (user) => {
     const {
-        usuario, 
-        empresa, 
-        endereco, 
-        cidade, 
-        estado, 
-        cep, 
+        usuario,
+        empresa,
+        endereco,
+        cidade,
+        estado,
+        cep,
         celular
     } = user;
     cy.get('[id="address_invoice"]')
@@ -230,7 +230,7 @@ Cypress.Commands.add('verificaDadosDeCobranca', (user) => {
 // Insere os dados do cartão do usuário
 Cypress.Commands.add('colocarDadosCartão', (user, numCartao, codigoSeguranca) => {
     const {
-        usuario, 
+        usuario,
     } = user;
     cy.get('[data-qa="name-on-card"]').should('be.visible').clear().type(usuario);
     cy.get('[data-qa="card-number"]').should('be.visible').clear().type(numCartao);

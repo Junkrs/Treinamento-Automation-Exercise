@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 
 describe('Teste 6 - Preencher formulário do "fale conosco"', () => {
-    const user = Cypress.env("user");
+    const user = Cypress.env('user');
     it('Verifica se o site está visível e preenche o formulário', () => {
         cy.visit('http://automationexercise.com');
 
