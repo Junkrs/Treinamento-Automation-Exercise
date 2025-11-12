@@ -31,6 +31,27 @@ Tendo os pré-requisitos garantidos, basta seguir os próximos passos:
   ```
   npx cypress open
   ```
+Alguns scripts customizados também foram implementados:
+- Verificar problemas com formatação usando ESlint:
+  ```
+  npm run lint
+  ```
+- Arrumar automáticamente os problemas reportados acima:
+  ```
+  npm run lint:fix
+  ```
+- Abrir o Cypress:
+  ```
+  npm run cy:open
+  ```
+- Rodar os testes via CLI:
+  ```
+  npm run test
+  ```
+- Rodar os testes via Cypress Cloud: ❌
+  ```
+  npm run test:cloud
+  ```
 
 ### 🔳 Estrutura
 Esta é a estrutura padrão do repositório, as marcadas em '#' não virão com o comando 'git clone ...':
@@ -101,6 +122,7 @@ Treinamento-Automation-Exercise/
     ]
 }
 ```
+A estrutura do arquivo .env acima foi passada para um arquivo chamado variables.json. Ele está em ```...\cypress\fixtures\variables.json```
 
 ### 🔳 Considerações
 Se tiver alguma dúvida. Por favor, entre em contato comigo :D
