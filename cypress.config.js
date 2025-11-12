@@ -19,4 +19,3 @@ module.exports = defineConfig({
         baseUrl: 'https://automationexercise.com/'
     },
 });
-
