@@ -246,16 +246,16 @@ Cypress.Commands.add('colocarDadosCartão', (user, numCartao, codigoSeguranca) =
 Cypress.Commands.add('api_chamarTodosProdutos', () => {
     cy.api({
     // Parametros da requisição de API
-    method: 'GET',
-    url: 'api/productsList'
-  });
+        method: 'GET',
+        url: 'api/productsList'
+    });
 });
 
 // Busca todos os produtos via API
 Cypress.Commands.add('api_postarTodosProdutos', () => {
     cy.api({
     // Parametros da requisição de API
-    method: 'POST',
-    url: 'api/productsList'
-  });
+        method: 'POST',
+        url: 'api/productsList'
+    });
 });
