@@ -247,15 +247,120 @@ Cypress.Commands.add('api_chamarTodosProdutos', () => {
     cy.api({
     // Parametros da requisição de API
         method: 'GET',
-        url: 'api/productsList'
+        url: 'api/productsList',
+        failOnStatusCode: false
     });
 });
 
-// Busca todos os produtos via API
+// Post em produtos via API
 Cypress.Commands.add('api_postarTodosProdutos', () => {
     cy.api({
     // Parametros da requisição de API
         method: 'POST',
-        url: 'api/productsList'
+        url: 'api/productsList',
+        failOnStatusCode: false
+    });
+});
+
+// Busca todos as marcas via API
+Cypress.Commands.add('api_chamarTodasMarcas', () => {
+    cy.api({
+    // Parametros da requisição de API
+        method: 'GET',
+        url: 'api/brandsList',
+        failOnStatusCode: false
+    });
+});
+
+// Post em marcas via API
+Cypress.Commands.add('api_postarTodasMarcas', () => {
+    cy.api({
+    // Parametros da requisição de API
+        method: 'POST',
+        url: 'api/brandsList',
+        failOnStatusCode: false
+    });
+});
+
+// Post em marcas via API
+Cypress.Commands.add('api_pesquisarProduto', (item) => {
+    cy.api({
+    // Parametros da requisição de API
+        method: 'POST',
+        url: 'api/searchProduct',
+        failOnStatusCode: false,
+        form: true,
+        body: {
+            search_product: `${item}`,
+        }
+    });
+});
+
+// Post em marcas via API sem o termo de pesquisa
+Cypress.Commands.add('api_pesquisarProdutoSemTermo', (item) => {
+    cy.api({
+    // Parametros da requisição de API
+        method: 'POST',
+        url: 'api/searchProduct',
+        failOnStatusCode: false,
+        form: true,
+    });
+});
+
+// Requisição de API para o login
+Cypress.Commands.add('api_verificarLogin', (email_usuario, senha) => {
+    cy.api({
+    // Parametros da requisição de API
+        method: 'POST',
+        url: 'api/verifyLogin',
+        failOnStatusCode: false,
+        form: true,
+        body: {
+            email: email_usuario,
+            password: senha
+        }
+    });
+});
+
+// Requisição de API para o login sem o parametro de email
+Cypress.Commands.add('api_verificarLoginIncorreto', (senha) => {
+    cy.api({
+    // Parametros da requisição de API
+        method: 'POST',
+        url: 'api/verifyLogin',
+        failOnStatusCode: false,
+        form: true,
+        body: {
+            password: senha
+        }
+    });
+});
+
+// Requisição de API para o login
+Cypress.Commands.add('api_verificarLoginDelete', (email_usuario, senha) => {
+    cy.api({
+    // Parametros da requisição de API
+        method: 'DELETE',
+        url: 'api/verifyLogin',
+        failOnStatusCode: false,
+        form: true,
+        body: {
+            email: email_usuario,
+            password: senha
+        }
+    });
+});
+
+// Requisição de API para o login
+Cypress.Commands.add('api_criarConta', (user) => {
+    cy.api({
+    // Parametros da requisição de API
+        method: 'POST',
+        url: 'api/createAccount',
+        failOnStatusCode: false,
+        form: true,
+        body: {
+            // Completar os dados do body com base no site
+        }
     });
 });
