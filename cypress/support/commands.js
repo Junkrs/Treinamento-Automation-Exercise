@@ -353,6 +353,21 @@ Cypress.Commands.add('api_verificarLoginDelete', (email_usuario, senha) => {
 
 // Requisição de API para o login
 Cypress.Commands.add('api_criarConta', (user) => {
+    const {
+        usuario,
+        email_usuario,
+        senha,
+        nome,
+        sobrenome,
+        empresa,
+        endereco,
+        pais,
+        estado,
+        cidade,
+        cep,
+        celular
+    } = user;
+
     cy.api({
     // Parametros da requisição de API
         method: 'POST',
@@ -360,7 +375,93 @@ Cypress.Commands.add('api_criarConta', (user) => {
         failOnStatusCode: false,
         form: true,
         body: {
-            // Completar os dados do body com base no site
+            name: usuario,
+            email: email_usuario,
+            password: senha,
+            title: "Mr.",
+            birth_date: "15",
+            birth_month: "October",
+            birth_year: "1902",
+            firstname: nome,
+            lastname: sobrenome,
+            company: empresa,
+            address1: endereco,
+            address2: endereco,
+            country: pais,
+            zipcode: cep,
+            state: estado,
+            city: cidade,
+            mobile_number: celular,
         }
+    });
+});
+
+// Requisição de API para deletar uma conta
+Cypress.Commands.add('api_deletarConta', (email_usuario, senha) => {
+    cy.api({
+    // Parametros da requisição de API
+        method: 'DELETE',
+        url: 'api/deleteAccount',
+        failOnStatusCode: false,
+        form: true,
+        body: {
+            email: email_usuario,
+            password: senha,
+        }
+    });
+});
+
+// Requisição de API para atualizar uma conta
+Cypress.Commands.add('api_atualizarConta', (user) => {
+    const {
+        usuario,
+        email_usuario,
+        senha,
+        nome,
+        sobrenome,
+        empresa,
+        endereco,
+        pais,
+        estado,
+        cidade,
+        cep,
+        celular
+    } = user;
+    cy.api({
+    // Parametros da requisição de API
+        method: 'PUT',
+        url: 'api/updateAccount',
+        failOnStatusCode: false,
+        form: true,
+        body: {
+            name: usuario,
+            email: email_usuario,
+            password: senha,
+            title: "Mr.",
+            birth_date: "15",
+            birth_month: "October",
+            birth_year: "1902",
+            firstname: nome,
+            lastname: sobrenome,
+            company: empresa,
+            address1: endereco,
+            address2: endereco,
+            country: pais,
+            zipcode: cep,
+            state: estado,
+            city: cidade,
+            mobile_number: celular,
+        }
+    });
+});
+
+// Requisição de API para puxar dados do usuário via e-mai
+Cypress.Commands.add('api_puxarDadosEmail', (email_usuario) => {
+    cy.api({
+    // Parametros da requisição de API
+        method: 'GET',
+        url: `api/getUserDetailByEmail?email=${email_usuario}`,
+        failOnStatusCode: false,
+        form: true,
     });
 });
