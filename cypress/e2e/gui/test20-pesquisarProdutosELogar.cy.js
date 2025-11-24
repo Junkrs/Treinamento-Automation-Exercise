@@ -1,6 +1,25 @@
 describe('Teste 20 - Vai pesquisar por produtos e depois do login, verificar o carrinho', () => {
+    const user = Cypress.env('user');
+
+    before(() => {
+        // Registra o usuário para fazer o teste de login em seguida
+        cy.api_criarConta(user).then(resposta => {
+            const parsedResposta = JSON.parse(resposta.body);
+            expect(parsedResposta.responseCode).to.eq(201);
+            expect(parsedResposta.message).to.eq('User created!');
+        });
+    });
+
+    after(() => {
+        // Remover o usuário para próximos testes
+        cy.api_deletarConta(user.email_usuario, user.senha).then(resposta => {
+            const parsedResposta = JSON.parse(resposta.body);
+            expect(parsedResposta.responseCode).to.eq(200);
+            expect(parsedResposta.message).to.eq('Account deleted!');
+        });
+    });
+
     it('Depois de adicionar os produtos no carrinho, vai fazer login e verificar que todos estão lá', () => {
-        const user = Cypress.env('user');
         const produtos = Cypress.env('produtos');
         const produto1 = produtos.find(produtos => produtos.id === 1);
         const produto2 = produtos.find(produtos => produtos.id === 2);
@@ -52,8 +71,8 @@ describe('Teste 20 - Vai pesquisar por produtos e depois do login, verificar o c
         // Fazer login do usuário, entrando na página de login
         cy.get('[href="/login"]').first().should('be.visible').click();
 
-        // Chama a função que registra o usuário
-        cy.registrarUsuarioCompleto(user);
+        // Logar o usuário
+        cy.logarUsuario(user);
 
         // Vai para a pagina do carrinho
         cy.get('[href="/view_cart"]')
@@ -69,8 +88,5 @@ describe('Teste 20 - Vai pesquisar por produtos e depois do login, verificar o c
         // Verifica o carrinho para cada produto
         cy.verificaDadosQuantitativosCarrinho(produto1.id, produto1.quantidade, produto1.preco);
         cy.verificaDadosQuantitativosCarrinho(produto2.id, produto2.quantidade, produto2.preco);
-
-        // Remove o usuário
-        cy.removerUsuario();
     });
 });

@@ -1,5 +1,15 @@
 describe('Teste 1 - Registra o usuário', () => {
     const user = Cypress.env('user');
+
+    after(() => {
+        // Remover o usuário para próximos testes
+        cy.api_deletarConta(user.email_usuario, user.senha).then(resposta => {
+            const parsedResposta = JSON.parse(resposta.body);
+            expect(parsedResposta.responseCode).to.eq(200);
+            expect(parsedResposta.message).to.eq('Account deleted!');
+        });
+    });
+
     it('Verifica se o site está visível e faz o registro e remoção do usuário', () => {
         cy.visit('http://automationexercise.com');
 
@@ -11,10 +21,6 @@ describe('Teste 1 - Registra o usuário', () => {
         cy.get('[href="/login"]').should('be.visible').click();
 
         // Chama a função que registra o usuário
-        // Não está mais tão feio assim
         cy.registrarUsuarioCompleto(user);
-
-        // Remover o usuário para próximos testes
-        cy.removerUsuario();
     });
 });
